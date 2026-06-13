@@ -37,14 +37,31 @@
 
 
 
+// class Solution {
+// public:
+//     int removeDuplicates(vector<int>& nums) {
+
+//         auto it = unique(nums.begin(), nums.end()); //move the unique element in front keeping duplicate at last aslo itertor will point next to the unique element
+
+//         nums.erase(it, nums.end()); // from etertor element will get deleted
+
+//         return nums.size();
+//     }
+// };
+
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
 
-        auto it = unique(nums.begin(), nums.end());
+        vector<int> ans;
+        ans.push_back(nums[0]);
 
-        nums.erase(it, nums.end());
-
+        for( int i=1; i<nums.size(); i++){
+            if(nums[i]!=nums[i-1]){
+                ans.push_back(nums[i]);
+            }
+        }
+        nums=ans;
         return nums.size();
     }
 };
