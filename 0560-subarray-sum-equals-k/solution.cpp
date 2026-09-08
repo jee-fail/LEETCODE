@@ -1,18 +1,18 @@
 class Solution {
- public:
-  int subarraySum(vector<int>& nums, int k) {
-    int ans = 0;
-    int prefix = 0;
-    unordered_map<int, int> count{{0, 1}};  // {prefix sum: count}
-
-    for (const int num : nums) {
-      prefix += num;
-      const int target = prefix - k;
-      if (const auto it = count.find(target); it != count.cend())
-        ans += it->second;
-      ++count[prefix];
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        //better solution
+        int count=0;
+        int sum=0;
+        unordered_map<int, int > mp;
+        mp[0]=1;
+        for( int i=0; i<nums.size(); i++){
+            sum+= nums[i];
+            if(mp.find(sum-k)!=mp.end()){
+                count=count+mp[sum-k];
+            }
+            mp[sum]++;
+        }
+        return count;
     }
-
-    return ans;
-  }
 };
