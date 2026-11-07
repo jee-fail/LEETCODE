@@ -1,30 +1,42 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        if (matrix.empty())
-      return {};
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int left=0, right=m-1, top=0, bot=n-1;
 
-    const int m = matrix.size();
-    const int n = matrix[0].size();
-    vector<int> ans;
-    int r1 = 0;
-    int c1 = 0;
-    int r2 = m - 1;
-    int c2 = n - 1;
+        vector<int> ans;
+        
+        while(top<=bot && left<=right){
+            //right
+        for(int i=left; i<=right; i++){
+            ans.push_back(matrix[top][i]);
+        }
+        top++;
 
-    // Repeatedly add matrix[r1..r2][c1..c2] to `ans`.
-    while (ans.size() < m * n) {
-      for (int j = c1; j <= c2 && ans.size() < m * n; ++j)
-        ans.push_back(matrix[r1][j]);
-      for (int i = r1 + 1; i <= r2 - 1 && ans.size() < m * n; ++i)
-        ans.push_back(matrix[i][c2]);
-      for (int j = c2; j >= c1 && ans.size() < m * n; --j)
-        ans.push_back(matrix[r2][j]);
-      for (int i = r2 - 1; i >= r1 + 1 && ans.size() < m * n; --i)
-        ans.push_back(matrix[i][c1]);
-      ++r1, ++c1, --r2, --c2;
-    }
+        //bot
+        for(int i=top; i<=bot; i++){
+            ans.push_back(matrix[i][right]);
+        }
+        right--;
 
-    return ans;
+        //left
+        if(top<=bot){
+            for(int i=right; i>=left; i--){
+                ans.push_back(matrix[bot][i]);
+            }
+            bot--;
+        }
+
+        //top
+        if(left<=right){
+            for(int i=bot;i>=top; i--){
+                ans.push_back(matrix[i][left]);
+            }
+            left++;
+        }
+        }
+
+        return ans;
     }
 };
