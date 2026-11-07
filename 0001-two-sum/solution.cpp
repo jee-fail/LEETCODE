@@ -14,18 +14,48 @@ public:
     //     return {-1,-1};
 
 
-    // OPTIMAL USING HASHING 
-    map<int, int> mpp;
-        for ( int i=0; i<nums.size(); i++){
-            int a=nums[i];
-            int need=target-a;
-            if(mpp.find(need)!=mpp.end()){
-                return {mpp[need],i};
+    // better sol USING HASHING ----and this is optimal one
+    // map<int, int> mpp;
+    //     for ( int i=0; i<nums.size(); i++){
+    //         int a=nums[i];
+    //         int need=target-a;
+    //         if(mpp.find(need)!=mpp.end()){
+    //             return {mpp[need],i};
+    //         }
+    //         else{
+    //             mpp[a]=i;
+    //         }
+    //     }
+    //     return {-1,-1};
+
+
+    // optimal solution
+
+    vector<pair<int, int>> arr;
+
+        for (int i = 0; i < nums.size(); i++) {
+            arr.push_back({nums[i], i});
+        }
+
+        sort(arr.begin(), arr.end());
+
+        int left = 0;
+        int right = arr.size() - 1;
+
+        while (left < right) {
+            int sum = arr[left].first + arr[right].first;
+
+            if (sum == target) {
+                return {arr[left].second, arr[right].second};
             }
-            else{
-                mpp[a]=i;
+            else if (sum < target) {
+                left++;
+            }
+            else {
+                right--;
             }
         }
-        return {-1,-1};
+
+        return {-1, -1};
     }
 };
